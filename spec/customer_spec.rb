@@ -8,10 +8,10 @@ class CustomerTest < MiniTest::Test
 
   def setup
 
-    @drink1 = Drink.new("Beer", 1)
-    @drink2 = Drink.new("Wine", 5)
-    @drink3 = Drink.new("Sambuca", 8)
-    @drink4 = Drink.new("Rum", 4)
+    @drink1 = Drink.new("Beer", 1, 2.5)
+    @drink2 = Drink.new("Wine", 5, 4.6)
+    @drink3 = Drink.new("Sambuca", 8, 1.3)
+    @drink4 = Drink.new("Rum", 4, 2.3)
     @drinks = [@drink1, @drink2, @drink3]
 
     @pub1 = Pub.new("The Lamb And Flag", 50, @drinks)
@@ -135,6 +135,26 @@ class CustomerTest < MiniTest::Test
     expected = false
     actual = @underage.is_legal?(@pub1)
 
+    assert_equal(expected, actual)
+  end
+
+  def test_customer_initial_drunkenness
+    expected = 0
+    actual = @customer1.drunkenness
+    assert_equal(expected, actual)
+  end
+
+def test_down_drink
+  expected = @drink1.alcohol_unit
+  @customer1.downs_drink(@drink1)
+  actual = @customer1.drunkenness
+  assert_equal(expected, actual)
+end
+
+  def test_customer_drunkeness_after_drink
+    expected = 4.6
+    @customer1.buys_drink(@pub1, @drink2)
+    actual = @customer1.drunkenness
     assert_equal(expected, actual)
   end
 

@@ -1,11 +1,12 @@
 class Customer
 
-  attr_reader :name
+  attr_reader :name, :drunkenness
 
   def initialize(name, wallet, age)
     @name = name
     @wallet = wallet
     @age = age
+    @drunkenness = 0
   end
 
   def check_id
@@ -24,6 +25,10 @@ class Customer
     return check_id >= pub.age_limit
   end
 
+  def downs_drink(drink)
+    @drunkenness += drink.alcohol_unit
+  end
+
   def buys_drink(pub, drink)
     if can_afford?(drink.price) && pub.has_drink?(drink) && is_legal?(pub)
 
@@ -32,6 +37,8 @@ class Customer
       pub.takes_money(drink.price)
 
       pub.sells_drink(drink)
+
+      downs_drink(drink)
 
     end
   end

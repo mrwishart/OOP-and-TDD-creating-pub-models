@@ -6,9 +6,9 @@ class DrinkTest < MiniTest::Test
 
   def setup
 
-    @drink1 = Drink.new("Beer", 1)
-    @drink2 = Drink.new("Wine", 4)
-    @drink3 = Drink.new("Long Island Ice Tea", 9)
+    @drink1 = Drink.new("Beer", 1, 1.8)
+    @drink2 = Drink.new("Wine", 4, 4.5)
+    @drink3 = Drink.new("Long Island Ice Tea", 9, 10.5)
 
   end
 
@@ -30,4 +30,11 @@ class DrinkTest < MiniTest::Test
 
   end
 
+  def test_drink_alcohol_unit
+    expected = 10.5
+    actual = @drink3.alcohol_unit
+    assert_equal(expected, actual)
+  end
+
+  
 end

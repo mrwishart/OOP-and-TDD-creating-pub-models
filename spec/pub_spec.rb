@@ -7,10 +7,10 @@ require_relative('../drink')
 class PubTest < MiniTest::Test
 
   def setup
-    @drink_a = Drink.new("Beer", 2)
-    @drink_b = Drink.new("Wine", 5)
-    @drink_c = Drink.new("Vodka", 8)
-    @drink_d = Drink.new("Cider", 4)
+    @drink_a = Drink.new("Beer", 2, 2.5)
+    @drink_b = Drink.new("Wine", 5, 5.7)
+    @drink_c = Drink.new("Vodka", 8, 2.1)
+    @drink_d = Drink.new("Cider", 4, 2.4)
     drinks = [@drink_a, @drink_b, @drink_c]
 
     @pub = Pub.new("The Gunner", 100, drinks)
