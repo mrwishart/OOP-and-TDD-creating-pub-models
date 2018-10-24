@@ -6,7 +6,11 @@ class Customer
     @name = name
     @wallet = wallet
     @age = age
-    @drunkenness = 0
+    @drunkenness = 0.0
+  end
+
+  def drunkenness
+    return @drunkenness.round(1)
   end
 
   def check_id
@@ -33,6 +37,11 @@ class Customer
     @drunkenness += drink.alcohol_unit
   end
 
+  def eats_food(food)
+    @drunkenness -= food.rejuvenation_level
+    @drunkenness = 0 if @drunkenness < 0
+  end
+
   def buys_drink(pub, drink)
     if can_afford?(drink.price) && pub.has_drink?(drink) && is_legal?(pub) && !too_drunk?(pub)
 
@@ -45,6 +54,19 @@ class Customer
       downs_drink(drink)
 
     end
+  end
+
+  def buys_food(pub, food)
+    if can_afford?(food.price) && pub.has_food?(food)
+
+      spends_money(food.price)
+      pub.takes_money(food.price)
+      pub.sells_food(food)
+      eats_food(food)
+
+    end
+
+
   end
 
 end

@@ -3,10 +3,15 @@ require('minitest/rg')
 require_relative('../customer')
 require_relative('../pub')
 require_relative('../drink')
+require_relative('../food')
 
 class CustomerTest < MiniTest::Test
 
   def setup
+
+    @food1 = Food.new("chips", 2, 1.3)
+    @food2 = Food.new("jelly", 6, 4.5)
+    @foods = [@food1, @food2]
 
     @drink1 = Drink.new("Beer", 1, 2.5)
     @drink2 = Drink.new("Wine", 5, 4.6)
@@ -14,9 +19,9 @@ class CustomerTest < MiniTest::Test
     @drink4 = Drink.new("Rum", 4, 2.3)
     @drinks = [@drink1, @drink2, @drink3]
 
-    @pub1 = Pub.new("The Lamb And Flag", 50, @drinks, 100)
+    @pub1 = Pub.new("The Lamb And Flag", 50, @drinks, @foods, 100)
 
-    @strictpub = Pub.new("The Nun And Hammer", 100, @drinks, 4.5)
+    @strictpub = Pub.new("The Nun And Hammer", 100, @drinks, [@food1], 4.5)
 
     @customer1 = Customer.new("Yuri", 300, 35)
     @customer2 = Customer.new("Cletus", 6, 58)
@@ -188,5 +193,44 @@ class CustomerTest < MiniTest::Test
 
 
   end
+
+  def test_customer_eats_food_reduces_drunk
+
+    expected = 0.1
+
+    # Yuri drinks wine. Drunknness should be 4.6
+    @customer1.downs_drink(@drink2)
+    # Yuri eats jelly. Drunknness should be 0.1
+    @customer1.eats_food(@food2)
+
+    actual = @customer1.drunkenness
+
+    assert_equal(expected, actual)
+
+  end
+
+  def test_customer_eats_food_no_drink
+
+    expected = 0
+
+    @customer1.eats_food(@food2)
+
+    actual = @customer1.drunkenness
+
+    assert_equal(expected, actual)
+
+  end
+
+  def test_customer_buys_food__available
+    expected = 52
+    expected_stock = [@food2]
+    @customer1.buys_food(@pub1, @food1)
+    actual = @pub1.till_amount
+    actual_stock = @pub1.foods
+    assert_equal(expected, actual)
+    assert_equal(expected_stock, actual_stock)
+  end
+
+
 
 end

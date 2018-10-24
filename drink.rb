@@ -5,7 +5,7 @@ class Drink
   def initialize(name, price, alcohol_unit)
     @name = name
     @price = price
-    @alcohol_unit = alcohol_unit
+    @alcohol_unit = alcohol_unit.to_f
   end
 
 end
