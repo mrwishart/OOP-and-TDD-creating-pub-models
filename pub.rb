@@ -21,4 +21,8 @@ class Pub
     @drinks.delete(drink)
   end
 
+  def has_drink?(drink)
+    @drinks.include?(drink)
+  end
+
 end

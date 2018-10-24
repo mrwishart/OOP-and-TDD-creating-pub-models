@@ -7,8 +7,8 @@ class Customer
     @wallet = wallet
   end
 
-  def wallet_amount
-    return @wallet
+  def can_afford?(price)
+    return @wallet >= price
   end
 
   def spends_money(price)
@@ -16,9 +16,11 @@ class Customer
   end
 
   def buys_drink(pub, drink)
-    spends_money(drink.price)
-    pub.takes_money(drink.price)
-    pub.sells_drink(drink)
+    if can_afford?(drink.price) && pub.has_drink?(drink)
+      spends_money(drink.price)
+      pub.takes_money(drink.price)
+      pub.sells_drink(drink)
+    end
   end
 
 end

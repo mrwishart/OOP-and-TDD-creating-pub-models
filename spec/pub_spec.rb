@@ -10,6 +10,7 @@ class PubTest < MiniTest::Test
     @drink_a = Drink.new("Beer", 2)
     @drink_b = Drink.new("Wine", 5)
     @drink_c = Drink.new("Vodka", 8)
+    @drink_d = Drink.new("Cider", 4)
     drinks = [@drink_a, @drink_b, @drink_c]
 
     @pub = Pub.new("The Gunner", 100, drinks)
@@ -40,6 +41,18 @@ class PubTest < MiniTest::Test
 
     assert_equal(expected, actual)
 
+  end
+
+  def test_pub_has_drink__true
+    expected = true
+    actual = @pub.has_drink?(@drink_a)
+    assert_equal(expected, actual)
+  end
+
+  def test_pub_has_drink__false
+    expected = false
+    actual = @pub.has_drink?(@drink_d)
+    assert_equal(expected, actual)
   end
 
 end
