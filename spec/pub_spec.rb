@@ -14,10 +14,10 @@ class PubTest < MiniTest::Test
     foods = [@food1, @food2]
 
 
-    @drink_a = Drink.new("Beer", 2, 2.5)
-    @drink_b = Drink.new("Wine", 5, 5.7)
-    @drink_c = Drink.new("Vodka", 8, 2.1)
-    @drink_d = Drink.new("Cider", 4, 2.4)
+    @drink_a = Drink.new("Beer", 2, 2.5, 5)
+    @drink_b = Drink.new("Wine", 5, 5.7, 16)
+    @drink_c = Drink.new("Vodka", 8, 2.1, 2)
+    @drink_d = Drink.new("Cider", 4, 2.4, 84)
     drinks = [@drink_a, @drink_b, @drink_c]
 
     @pub = Pub.new("The Gunner", 100, drinks, foods, 50)
@@ -42,9 +42,9 @@ class PubTest < MiniTest::Test
   end
 
   def test_pub_sells_drink
-    expected = [@drink_a, @drink_c]
+    expected = 15
     @pub.sells_drink(@drink_b)
-    actual = @pub.drinks
+    actual = @pub.check_stock(@drink_b)
 
     assert_equal(expected, actual)
 
@@ -99,6 +99,13 @@ class PubTest < MiniTest::Test
 
     assert_equal(expected, actual)
 
+  end
+
+  def test_pub_stock
+    expected = { "Beer" => 5, "Wine" => 16, "Vodka" => 2}
+    actual = @pub.stock
+    p @pub.stock
+    assert_equal(expected, actual)
   end
 
 end

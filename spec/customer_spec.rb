@@ -13,10 +13,10 @@ class CustomerTest < MiniTest::Test
     @food2 = Food.new("jelly", 6, 4.5)
     @foods = [@food1, @food2]
 
-    @drink1 = Drink.new("Beer", 1, 2.5)
-    @drink2 = Drink.new("Wine", 5, 4.6)
-    @drink3 = Drink.new("Sambuca", 8, 1.3)
-    @drink4 = Drink.new("Rum", 4, 2.3)
+    @drink1 = Drink.new("Beer", 1, 2.5, 5)
+    @drink2 = Drink.new("Wine", 5, 4.6, 85)
+    @drink3 = Drink.new("Sambuca", 8, 1.3, 2)
+    @drink4 = Drink.new("Rum", 4, 2.3, 6)
     @drinks = [@drink1, @drink2, @drink3]
 
     @pub1 = Pub.new("The Lamb And Flag", 50, @drinks, @foods, 100)
@@ -61,7 +61,6 @@ class CustomerTest < MiniTest::Test
 
     # expected_customer = 292
     expected_till = 58
-    expected_drinks = [@drink1, @drink2]
 
     @customer1.buys_drink(@pub1, @drink3)
 
@@ -71,7 +70,6 @@ class CustomerTest < MiniTest::Test
 
     #assert_equal(expected_customer, actual_customer)
     assert_equal(expected_till, actual_till)
-    assert_equal(expected_drinks, actual_drinks)
 
   end
 

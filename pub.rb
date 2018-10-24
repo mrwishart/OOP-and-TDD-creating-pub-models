@@ -1,16 +1,15 @@
 class Pub
 
-  attr_reader :name, :drinks, :age_limit, :drunkenness_limit, :foods
+  attr_reader :name, :drinks, :age_limit, :drunkenness_limit, :foods, :stock
 
   def initialize(name, till_amount, drinks, foods, drunkenness_limit)
     @name = name
     @till_amount = till_amount
     @drinks = drinks
-    #@stock = {}
-    #for drink in drinks
-    # add drink.name => drink.stock
-    #end
-    #
+    @stock = {}
+    for drink in drinks
+      stock[drink.name] = drink.stock
+    end
 
     @foods = foods
     @age_limit = 18 #In UK
@@ -27,11 +26,19 @@ class Pub
   end
 
   def sells_drink(drink)
-    @drinks.delete(drink)
+    stock[drink.name] -= 1
   end
 
   def sells_food(food)
     @foods.delete(food)
+  end
+
+  def in_stock?(drink)
+    return @stock[drink.name] != 0
+  end
+
+  def check_stock(drink)
+    return @stock[drink.name]
   end
 
   def has_drink?(drink)
