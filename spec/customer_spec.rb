@@ -16,8 +16,9 @@ class CustomerTest < MiniTest::Test
 
     @pub1 = Pub.new("The Lamb And Flag", 50, @drinks)
 
-    @customer1 = Customer.new("Yuri", 300)
-    @customer2 = Customer.new("Cletus", 6)
+    @customer1 = Customer.new("Yuri", 300, 35)
+    @customer2 = Customer.new("Cletus", 6, 58)
+    @underage = Customer.new("Jimmy", 3000, 17)
 
   end
 
@@ -105,6 +106,36 @@ class CustomerTest < MiniTest::Test
 
   end
 
+  def test_underage_customer
 
+    expected = 50
+    @underage.buys_drink(@pub1, @drink3)
+    actual = @pub1.till_amount
+    assert_equal(expected, actual)
+
+  end
+
+  def test_check_id
+    expected = 17
+    actual = @underage.check_id
+
+    assert_equal(expected, actual)
+
+  end
+
+  def test_is_legal__true
+    expected = true
+    actual = @customer1.is_legal?(@pub1)
+
+    assert_equal(expected, actual)
+
+  end
+
+  def test_is_legal__false
+    expected = false
+    actual = @underage.is_legal?(@pub1)
+
+    assert_equal(expected, actual)
+  end
 
 end

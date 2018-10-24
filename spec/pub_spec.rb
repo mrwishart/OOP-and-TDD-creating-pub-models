@@ -55,4 +55,10 @@ class PubTest < MiniTest::Test
     assert_equal(expected, actual)
   end
 
+  def test_pub_age_limit
+    expected = 18
+    actual = @pub.age_limit
+    assert_equal(expected, actual)
+  end
+
 end
