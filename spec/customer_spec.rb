@@ -14,7 +14,9 @@ class CustomerTest < MiniTest::Test
     @drink4 = Drink.new("Rum", 4, 2.3)
     @drinks = [@drink1, @drink2, @drink3]
 
-    @pub1 = Pub.new("The Lamb And Flag", 50, @drinks)
+    @pub1 = Pub.new("The Lamb And Flag", 50, @drinks, 100)
+
+    @strictpub = Pub.new("The Nun And Hammer", 100, @drinks, 4.5)
 
     @customer1 = Customer.new("Yuri", 300, 35)
     @customer2 = Customer.new("Cletus", 6, 58)
@@ -144,18 +146,47 @@ class CustomerTest < MiniTest::Test
     assert_equal(expected, actual)
   end
 
-def test_down_drink
-  expected = @drink1.alcohol_unit
-  @customer1.downs_drink(@drink1)
-  actual = @customer1.drunkenness
-  assert_equal(expected, actual)
-end
+  def test_down_drink
+    expected = @drink1.alcohol_unit
+    @customer1.downs_drink(@drink1)
+    actual = @customer1.drunkenness
+    assert_equal(expected, actual)
+  end
 
   def test_customer_drunkeness_after_drink
     expected = 4.6
     @customer1.buys_drink(@pub1, @drink2)
     actual = @customer1.drunkenness
     assert_equal(expected, actual)
+  end
+
+  def test_too_drunk?
+    expected_drunkenness = 4.6
+    expected_outcome = true
+
+    @customer1.buys_drink(@strictpub, @drink2)
+
+    actual_drunkenness = @customer1.drunkenness
+    actual_outcome = @customer1.too_drunk?(@strictpub)
+
+    assert_equal(expected_drunkenness, actual_drunkenness)
+    assert_equal(expected_outcome, actual_outcome)
+
+  end
+
+  def test_too_drunk_to_serve
+    expected = 105
+
+    # Customer buys wine from strict pub. Should work
+    @customer1.buys_drink(@strictpub, @drink2)
+    # Customer buys sambuca from strict pub. Should be too drunk!
+    @customer1.buys_drink(@strictpub, @drink3)
+
+    actual = @strictpub.till_amount
+
+    assert_equal(expected, actual)
+
+
   end
 
 end

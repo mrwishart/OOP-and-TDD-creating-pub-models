@@ -13,7 +13,7 @@ class PubTest < MiniTest::Test
     @drink_d = Drink.new("Cider", 4, 2.4)
     drinks = [@drink_a, @drink_b, @drink_c]
 
-    @pub = Pub.new("The Gunner", 100, drinks)
+    @pub = Pub.new("The Gunner", 100, drinks, 50)
   end
 
   def test_pub_has_name
@@ -58,6 +58,12 @@ class PubTest < MiniTest::Test
   def test_pub_age_limit
     expected = 18
     actual = @pub.age_limit
+    assert_equal(expected, actual)
+  end
+
+  def test_pub_drunkenness_limit
+    expected = 50
+    actual = @pub.drunkenness_limit
     assert_equal(expected, actual)
   end
 

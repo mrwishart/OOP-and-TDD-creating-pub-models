@@ -25,12 +25,16 @@ class Customer
     return check_id >= pub.age_limit
   end
 
+  def too_drunk?(pub)
+    return @drunkenness > pub.drunkenness_limit
+  end
+
   def downs_drink(drink)
     @drunkenness += drink.alcohol_unit
   end
 
   def buys_drink(pub, drink)
-    if can_afford?(drink.price) && pub.has_drink?(drink) && is_legal?(pub)
+    if can_afford?(drink.price) && pub.has_drink?(drink) && is_legal?(pub) && !too_drunk?(pub)
 
       spends_money(drink.price)
 

@@ -1,12 +1,13 @@
 class Pub
 
-  attr_reader :name, :drinks, :age_limit
+  attr_reader :name, :drinks, :age_limit, :drunkenness_limit
 
-  def initialize(name, till_amount, drinks)
+  def initialize(name, till_amount, drinks, drunkenness_limit)
     @name = name
     @till_amount = till_amount
     @drinks = drinks
     @age_limit = 18 #In UK
+    @drunkenness_limit = drunkenness_limit
   end
 
   def till_amount
