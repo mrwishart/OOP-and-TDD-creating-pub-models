@@ -12,4 +12,13 @@ class Pub
     return @till_amount
   end
 
+
+  def takes_money(cash)
+    @till_amount += cash
+  end
+
+  def sells_drink(drink)
+    @drinks.delete(drink)
+  end
+
 end

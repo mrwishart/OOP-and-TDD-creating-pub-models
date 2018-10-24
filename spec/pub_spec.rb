@@ -27,6 +27,19 @@ class PubTest < MiniTest::Test
     assert_equal(100, @pub.till_amount)
   end
 
+  def test_till_takes_in_money
+    @pub.takes_money(5)
+    assert_equal(105, @pub.till_amount)
 
+  end
+
+  def test_pub_sells_drink
+    expected = [@drink_a, @drink_c]
+    @pub.sells_drink(@drink_b)
+    actual = @pub.drinks
+
+    assert_equal(expected, actual)
+
+  end
 
 end
